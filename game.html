@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>tennis game</title>
+</head>
+<body>
+<p>my first game!</p>
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+<script type="text/javascript">
+    var canvas;
+    var canvasContext;
+    var ballX = 50;
+
+    function drawEverything(){
+        //first number how far from the left, second how far from the top, third and forth dimensions for center subtract half of w and h, order important for overlapping -->
+        canvasContext.fillStyle = 'black';
+        canvasContext.fillRect(0,0,canvas.width,canvas.height);
+        //paddle
+        canvasContext.fillStyle = 'white';
+        canvasContext.fillRect(0,210,10,100);
+        canvasContext.fillStyle = 'red';
+        canvasContext.fillRect(ballX,100,10,10);
+    }
+
+    function moveEverything(){
+        ballX += 10;
+    }
+
+    window.onload = function() {
+        canvas = document.getElementById('gameCanvas');
+        canvasContext = canvas.getContext('2d');
+
+        var framesPerSecond = 30;
+        setInterval(function (){
+            moveEverything();
+            drawEverything();
+        },1000/framesPerSecond);
+    };
+
+</script>
+</body>
+</html>
