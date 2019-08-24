@@ -18,13 +18,20 @@
         canvasContext.fillRect(lefX,topY,width,height);
     }
 
+    function colorCircle(centerX, centerY,radious,drawColour){
+        canvasContext.fillStyle = drawColour;
+        canvasContext.beginPath();
+        canvasContext.arc(centerX, centerY,radious, 0,Math.PI*2,true);
+        canvasContext.fill();
+    }
+
     function drawEverything(){
         //make black canvas
         colorRect(0,0,canvas.width,canvas.height,'black');
         //paddle
         colorRect(0,210,10,100,'white');
         //ball
-        colorRect(ballX,100,10,10,'red');
+        colorCircle(ballX,150,10,'white');
 }
 
     function moveEverything(){
