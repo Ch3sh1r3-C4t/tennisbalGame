@@ -10,23 +10,35 @@
     var canvas;
     var canvasContext;
     var ballX = 50;
+    var ballSpeedX = 10;
+
+    function colorRect(lefX,topY,width,height,drawColour){
+        //first number how far from the left, second how far from the top, third and forth dimensions for center subtract half of w and h, order important for overlapping -->
+        canvasContext.fillStyle = drawColour;
+        canvasContext.fillRect(lefX,topY,width,height);
+    }
 
     function drawEverything(){
-        //first number how far from the left, second how far from the top, third and forth dimensions for center subtract half of w and h, order important for overlapping -->
-        canvasContext.fillStyle = 'black';
-        canvasContext.fillRect(0,0,canvas.width,canvas.height);
+        //make black canvas
+        colorRect(0,0,canvas.width,canvas.height,'black');
         //paddle
-        canvasContext.fillStyle = 'white';
-        canvasContext.fillRect(0,210,10,100);
-        canvasContext.fillStyle = 'red';
-        canvasContext.fillRect(ballX,100,10,10);
-    }
+        colorRect(0,210,10,100,'white');
+        //ball
+        colorRect(ballX,100,10,10,'red');
+}
 
     function moveEverything(){
-        ballX += 10;
+        ballX += ballSpeedX;
+        if(ballX < 0){
+            ballSpeedX = -ballSpeedX;
+        }
+        if(ballX > canvas.width){
+            ballSpeedX = -ballSpeedX;
+        }
+
     }
 
-    window.onload = function() {
+   window.onload = function() {
         canvas = document.getElementById('gameCanvas');
         canvasContext = canvas.getContext('2d');
 
@@ -34,7 +46,7 @@
         setInterval(function (){
             moveEverything();
             drawEverything();
-        },1000/framesPerSecond);
+        }, 1000/framesPerSecond);
     };
 
 </script>
