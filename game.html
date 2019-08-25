@@ -11,6 +11,8 @@
     var canvasContext;
     var ballX = 50;
     var ballSpeedX = 10;
+    var ballY = 50;
+    var ballSpeedY = 4;
 
     function colorRect(lefX,topY,width,height,drawColour){
         //first number how far from the left, second how far from the top, third and forth dimensions for center subtract half of w and h, order important for overlapping -->
@@ -31,16 +33,23 @@
         //paddle
         colorRect(0,210,10,100,'white');
         //ball
-        colorCircle(ballX,150,10,'white');
+        colorCircle(ballX,ballY,10,'white');
 }
 
     function moveEverything(){
         ballX += ballSpeedX;
+        ballY += ballSpeedY;
         if(ballX < 0){
             ballSpeedX = -ballSpeedX;
         }
         if(ballX > canvas.width){
             ballSpeedX = -ballSpeedX;
+        }
+        if(ballY < 0){
+            ballSpeedY = -ballSpeedY;
+        }
+        if(ballY > canvas.height){
+            ballSpeedY = -ballSpeedY;
         }
 
     }
