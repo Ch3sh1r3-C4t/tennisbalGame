@@ -7,12 +7,17 @@
 <p>my first game!</p>
 <canvas id="gameCanvas" width="800" height="600"></canvas>
 <script type="text/javascript">
+    /*jshint esversion: 6 */
+
     var canvas;
     var canvasContext;
     var ballX = 50;
     var ballSpeedX = 10;
     var ballY = 50;
     var ballSpeedY = 4;
+
+    var paddle1Y = 250;
+    const PADDLE_HEIGHT = 100;
 
     function colorRect(lefX,topY,width,height,drawColour){
         //first number how far from the left, second how far from the top, third and forth dimensions for center subtract half of w and h, order important for overlapping -->
@@ -30,8 +35,8 @@
     function drawEverything(){
         //make black canvas
         colorRect(0,0,canvas.width,canvas.height,'black');
-        //paddle
-        colorRect(0,210,10,100,'white');
+        //paddle1
+        colorRect(0,paddle1Y,10,PADDLE_HEIGHT,'white');
         //ball
         colorCircle(ballX,ballY,10,'white');
 }
@@ -54,6 +59,20 @@
 
     }
 
+    function calculateMousePos(evt){
+        //canavs area
+        var rect = canvas.getBoundingClientRect();
+        var root = document.documentElement;
+        //where on the page from side and top is the canavs and how far we scrolled, subracting those we find X and Y coordinater for mouse in the playable area
+        var mouseX = evt.clientX - rect.left - root.scrollLeft;
+        var mouseY = evt.clientY - rect.top - root.scrollTop;
+        //returns the coordinates
+        return{
+            x:mouseX,
+            y:mouseY
+        };
+    }
+
    window.onload = function() {
         canvas = document.getElementById('gameCanvas');
         canvasContext = canvas.getContext('2d');
@@ -63,6 +82,11 @@
             moveEverything();
             drawEverything();
         }, 1000/framesPerSecond);
+        canvas.addEventListener('mousemove',
+        function(evt) {
+            var mousePos = calculateMousePos(evt);
+            paddle1Y = mousePos.y - (PADDLE_HEIGHT/2);
+        });
     };
 
 </script>
