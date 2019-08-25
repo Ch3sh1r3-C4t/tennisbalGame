@@ -43,6 +43,7 @@
         colorRect(canvas.width - PADDLE_THIKNESS,paddle2Y,PADDLE_THIKNESS,PADDLE_HEIGHT,'white');
         //ball
         colorCircle(ballX,ballY,10,'white');
+
 }
 
     function ballReset(){
@@ -51,7 +52,19 @@
         ballY = canvas.height / 2;
     }
 
+    function computerMovement(){
+        var paddle2YCenter = paddle2Y + (PADDLE_HEIGHT/2);
+        if (paddle2YCenter < ballY-35){
+            paddle2Y +=6;
+        }
+        else if (paddle2YCenter > ballY+35){
+            paddle2Y -=6;
+        }
+    }
+
     function moveEverything(){
+        computerMovement();
+
         ballX += ballSpeedX;
         ballY += ballSpeedY;
         if(ballX < 0){
