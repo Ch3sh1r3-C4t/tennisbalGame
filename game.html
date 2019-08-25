@@ -41,11 +41,22 @@
         colorCircle(ballX,ballY,10,'white');
 }
 
+    function ballReset(){
+        ballSpeedX = -ballSpeedX;
+        ballX = canvas.width / 2;
+        ballY = canvas.height / 2;
+    }
+
     function moveEverything(){
         ballX += ballSpeedX;
         ballY += ballSpeedY;
         if(ballX < 0){
-            ballSpeedX = -ballSpeedX;
+            if(ballY > paddle1Y && ballY < paddle1Y + PADDLE_HEIGHT){
+                ballSpeedX = -ballSpeedX;
+            }
+            else {
+             ballReset();
+            }
         }
         if(ballX > canvas.width){
             ballSpeedX = -ballSpeedX;
@@ -60,10 +71,10 @@
     }
 
     function calculateMousePos(evt){
-        //canavs area
+        //canvas area
         var rect = canvas.getBoundingClientRect();
         var root = document.documentElement;
-        //where on the page from side and top is the canavs and how far we scrolled, subracting those we find X and Y coordinater for mouse in the playable area
+        //where on the page from side and top is the canvas and how far we scrolled, subracting those we find X and Y coordinater for mouse in the playable area
         var mouseX = evt.clientX - rect.left - root.scrollLeft;
         var mouseY = evt.clientY - rect.top - root.scrollTop;
         //returns the coordinates
