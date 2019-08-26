@@ -39,7 +39,11 @@
         canvasContext.fill();
     }
 
-
+function drawNet(){
+        for (var i = 0; i < canvas.height; i+= 40) {
+            colorRect(canvas.width/2 - 1,i,2,20,'white');
+        }
+    }
 
     function drawEverything(){
         //make black canvas
@@ -60,8 +64,10 @@
         colorRect(0,paddle1Y,PADDLE_THIKNESS,PADDLE_HEIGHT,'white');
         //paddle2
         colorRect(canvas.width - PADDLE_THIKNESS,paddle2Y,PADDLE_THIKNESS,PADDLE_HEIGHT,'white');
+        //draw net
+        drawNet();
         //ball
-        colorCircle(ballX,ballY,10,'white');
+        colorCircle(ballX,ballY,10,'yellow');
         // scrore display
         canvasContext.fillText(player1Score,100,100);
         canvasContext.fillText(player2Score,canvas.width - 100,100);
